@@ -1,0 +1,53 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.eggtimer.app"
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.eggtimer.app"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+configurations.configureEach {
+    exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib-jdk7"
+    exclude group: "org.jetbrains.kotlin", module: "kotlin-stdlib-jdk8"
+}
+
+dependencies {
+    implementation "androidx.appcompat:appcompat:1.7.0"
+}
+
+def webRoot = rootProject.file("..")
+
+tasks.register("copyWeb", Copy) {
+    from(webRoot) {
+        include "index.html"
+        include "styles.css"
+        include "app.js"
+        include "fonts/*"
+    }
+    into layout.projectDirectory.dir("src/main/assets/www")
+}
+
+tasks.named("preBuild").configure {
+    dependsOn("copyWeb")
+}

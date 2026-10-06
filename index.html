@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Egg timer</title>
+  <meta name="description" content="Boil eggs from barely set to classic hard-boiled, with a timer and a sidekick.">
+  <meta name="theme-color" content="#d7e6ee">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='34' rx='18' ry='24' fill='%23fff'/%3E%3Ccircle cx='32' cy='36' r='10' fill='%23F7D24C'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="stage">
+    <section class="poster" aria-labelledby="title">
+      <header class="poster-head">
+        <h1 id="title">How long to boil eggs</h1>
+        <p class="range">(0–14 minutes)</p>
+      </header>
+
+      <div class="poster-body">
+        <ul class="chart" id="chart" aria-label="Doneness"></ul>
+
+        <section class="timer-panel" aria-label="Timer">
+          <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+              <defs>
+                <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#ffe58a"/>
+                  <stop offset="55%" stop-color="#f7d24c"/>
+                  <stop offset="100%" stop-color="#f0a020"/>
+                </linearGradient>
+              </defs>
+              <circle class="ring-track" cx="110" cy="110" r="98"/>
+              <circle class="ring-progress" id="progress" cx="110" cy="110" r="98"/>
+            </svg>
+            <div class="ring-center">
+              <div class="hero-slot" id="hero-egg"></div>
+              <p class="time" id="time">06:00</p>
+              <p class="of" id="of">of 06:00</p>
+              <p class="stage-label" id="stage-label">jammy</p>
+            </div>
+          </div>
+
+          <div class="controls">
+            <button class="primary" id="primary" type="button">Start</button>
+            <button class="reset" id="reset" type="button">Reset</button>
+          </div>
+          <p class="hint">For large eggs. Start when they go into boiling water.</p>
+        </section>
+      </div>
+    </section>
+
+    <aside class="companion" aria-label="Egg character">
+      <p class="bubble" id="bubble">Jammy yolk. Six minutes is the sweet spot.</p>
+      <svg id="egg-character" data-mood="neutral" viewBox="0 0 360 410" role="img" aria-label="Sitting egg character">
+        <defs>
+          <radialGradient id="shellGrad" cx="36%" cy="30%" r="72%">
+            <stop offset="0%" stop-color="#ffffff"/>
+            <stop offset="72%" stop-color="#f7f7f7"/>
+            <stop offset="100%" stop-color="#d5e4ec"/>
+          </radialGradient>
+          <radialGradient id="yolkGrad" cx="36%" cy="32%" r="70%">
+            <stop offset="0%" stop-color="#ffe9a0"/>
+            <stop offset="58%" stop-color="#f7d24c"/>
+            <stop offset="100%" stop-color="#efc12e"/>
+          </radialGradient>
+        </defs>
+        <ellipse class="ground" cx="176" cy="362" rx="108" ry="14"/>
+        <g class="bob">
+          <g class="part sparkles" fill="#ffb347">
+            <path d="M58 78l4.2 12.2L74 94.6l-11.8 4.4L58 112l-4.2-13-11.8-4.4 11.8-4.4z"/>
+            <path fill="#f7d24c" d="M82 48l2.6 8.2 8.2 2.6-8.2 2.6L82 70l-2.6-8.6-8.2-2.6 8.2-2.6z"/>
+          </g>
+          <g class="part zzz" fill="#7f92a3" font-family="Nunito, sans-serif" font-weight="800">
+            <text x="246" y="92" font-size="18" transform="rotate(-14 246 92)">z</text>
+            <text x="266" y="70" font-size="24" transform="rotate(-10 266 70)">z</text>
+            <text x="290" y="46" font-size="32" transform="rotate(-6 290 46)">Z</text>
+          </g>
+          <text class="part question" x="286" y="118" font-size="40" font-family="Fraunces, Georgia, serif" font-weight="700" fill="#6f8494">?</text>
+          <g class="part motion" fill="none" stroke="#ffb347" stroke-width="5" stroke-linecap="round">
+            <path d="M308 156h26"/>
+            <path d="M314 174h18"/>
+            <path d="M308 192h26"/>
+          </g>
+
+          <path class="shell" d="M176 34c82 0 126 78 126 156 0 98-52 160-126 160S50 288 50 190C50 112 94 34 176 34z"/>
+          <ellipse class="shell-shine" cx="128" cy="118" rx="34" ry="52" transform="rotate(-22 128 118)"/>
+
+          <circle class="yolk" cx="176" cy="198" r="78"/>
+          <ellipse class="yolk-shine" cx="150" cy="170" rx="26" ry="15"/>
+
+          <g class="part blush">
+            <ellipse cx="112" cy="214" rx="16" ry="9"/>
+            <ellipse cx="240" cy="214" rx="16" ry="9"/>
+          </g>
+
+          <g class="part eyes-open">
+            <circle cx="154" cy="188" r="6"/>
+            <circle cx="198" cy="188" r="6"/>
+            <circle cx="152" cy="186" r="2" fill="#fff"/>
+            <circle cx="196" cy="186" r="2" fill="#fff"/>
+          </g>
+          <g class="part eyes-happy" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round">
+            <path d="M140 192q14-20 28 0"/>
+            <path d="M184 192q14-20 28 0"/>
+          </g>
+          <g class="part eyes-sleepy" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round">
+            <path d="M140 190q14-8 28 0"/>
+            <path d="M184 190q14-8 28 0"/>
+          </g>
+          <g class="part eyes-surprised">
+            <circle cx="154" cy="186" r="9"/>
+            <circle cx="198" cy="186" r="9"/>
+            <circle cx="151" cy="183" r="2.4" fill="#fff"/>
+            <circle cx="195" cy="183" r="2.4" fill="#fff"/>
+          </g>
+          <g class="part eyes-wink">
+            <circle cx="154" cy="188" r="6"/>
+            <circle cx="152" cy="186" r="2" fill="#fff"/>
+            <path d="M184 192q14-18 28 0" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+          </g>
+          <g class="part eyes-thinking">
+            <circle cx="148" cy="180" r="6"/>
+            <circle cx="190" cy="176" r="6"/>
+            <circle cx="146" cy="178" r="2" fill="#fff"/>
+            <circle cx="188" cy="174" r="2" fill="#fff"/>
+          </g>
+
+          <g class="part mouth-smile" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round">
+            <path d="M156 216q20 16 40 0"/>
+          </g>
+          <g class="part mouth-big" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round">
+            <path d="M148 212q28 30 56 0"/>
+          </g>
+          <g class="part mouth-small" fill="none" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round">
+            <path d="M162 218q14 8 28 0"/>
+          </g>
+          <g class="part mouth-o" fill="none" stroke="#1a1a1a" stroke-width="3.5">
+            <ellipse cx="176" cy="222" rx="8" ry="9"/>
+          </g>
+
+          <g transform="rotate(-18 120 316)">
+            <ellipse cx="120" cy="316" rx="44" ry="21" fill="#8B6B4E"/>
+            <ellipse cx="108" cy="310" rx="15" ry="6" fill="#c4a07c" opacity="0.6"/>
+          </g>
+          <g transform="rotate(16 236 320)">
+            <ellipse cx="236" cy="320" rx="46" ry="22" fill="#7d5e45"/>
+            <ellipse cx="222" cy="314" rx="15" ry="6" fill="#c4a07c" opacity="0.5"/>
+          </g>
+        </g>
+      </svg>
+    </aside>
+  </main>
+  <p class="sr" id="live" aria-live="polite"></p>
+  <script src="app.js"></script>
+</body>
+</html>
